@@ -35,3 +35,7 @@ ul{
 .coin:hover .delete-icon{
     display: block;
 }
+
+.coin-display-name{
+    text-decoration: underline wavy green;
+}
