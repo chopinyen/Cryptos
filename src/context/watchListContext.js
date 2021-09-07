@@ -3,34 +3,39 @@ import React, { createContext, useState, useEffect } from "react";
 export const WatchListContext = createContext();
 
 export const WatchListContextProvider = (props) => {
-  const [watchList, setWatchList] = useState([
-    localStorage.getItem("watchList").split(",") || "bitcoin",
-    "ethereum",
-    "ripple",
-    "litecoin",
-  ]);
+    const defaultList = ["bitcoin", "ethereum", "ripple", "litecoin"];
 
-  useEffect(() => {
-    localStorage.setItem("watchList", watchList);
-  }, [watchList]);
+    var coinsList = null;
 
-  const deleteCoin = (coin) => {
-    setWatchList(
-      watchList.filter((el) => {
-        return el !== coin;
-      })
-    );
-  };
-
-  const addCoin = (coin) => {
-    if (watchList.indexOf(coin) === -1) {
-      setWatchList([coin, ...watchList]);
+    if (localStorage.getItem("watList") != null) {
+        coinsList = localStorage.getItem("watList").split(",");
+    } else {
+        coinsList = defaultList;
     }
-  };
 
-  return (
-    <WatchListContext.Provider value={{ watchList, deleteCoin, addCoin }}>
-      {props.children}
-    </WatchListContext.Provider>
-  );
+    const [watchList, setWatchList] = useState(coinsList);
+
+    useEffect(() => {
+        localStorage.setItem("watchList", watchList);
+    }, [watchList]);
+
+    const deleteCoin = (coin) => {
+        setWatchList(
+            watchList.filter((el) => {
+                return el !== coin;
+            })
+        );
+    };
+
+    const addCoin = (coin) => {
+        if (watchList.indexOf(coin) === -1) {
+            setWatchList([coin, ...watchList]);
+        }
+    };
+
+    return (
+        <WatchListContext.Provider value={{ watchList, deleteCoin, addCoin }}>
+            {props.children}
+        </WatchListContext.Provider>
+    );
 };
