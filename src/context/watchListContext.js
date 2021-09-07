@@ -7,8 +7,8 @@ export const WatchListContextProvider = (props) => {
 
     var coinsList = null;
 
-    if (localStorage.getItem("watList") != null) {
-        coinsList = localStorage.getItem("watList").split(",");
+    if (localStorage.getItem("watchList") != null) {
+        coinsList = localStorage.getItem("watchList").split(",");
     } else {
         coinsList = defaultList;
     }
